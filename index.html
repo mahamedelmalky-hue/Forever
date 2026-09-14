@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>لـ لولتي ❤️</title>
+<meta name="description" content="عالم صغير خاص بينا يا لولو">
+
+<!-- ============================================================
+     خطوط عربية من Google Fonts — Alexandria للعناوين، Tajawal للنصوص
+============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   0) DESIGN TOKENS — لو عايز تغيّر لون أو خط، غيّر هنا بس
+============================================================ */
+:root{
+  --black:        #0a0609;
+  --purple-deep:  #241128;
+  --wine:         #4a1225;
+  --burgundy:     #6b1a2f;
+  --rose-dark:    #8a2f47;
+  --rose-soft:    #e6b8c9;
+  --champagne:    #f1ddc0;
+  --white-warm:   #faf3ec;
+
+  --ink:          var(--white-warm);
+  --ink-dim:      rgba(250,243,236,.62);
+  --ink-faint:    rgba(250,243,236,.36);
+
+  --grad-bg: radial-gradient(120% 90% at 50% -10%, #2a1030 0%, #150a17 42%, #0a0609 78%);
+  --grad-accent: linear-gradient(135deg, var(--rose-soft) 0%, var(--champagne) 55%, var(--rose-soft) 100%);
+
+  --font-display: 'Alexandria', 'Tajawal', sans-serif;
+  --font-body: 'Tajawal', 'Alexandria', sans-serif;
+
+  --line: rgba(230,184,201,.18);
+  --shadow-soft: 0 20px 60px -20px rgba(0,0,0,.6);
+  --ease: cubic-bezier(.16,.84,.36,1);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001s !important; animation-iteration-count:1 !important; transition-duration:.001s !important;}
+}
+
+body{
+  background:var(--black);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.9;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  cursor:default;
+}
+
+::selection{background:var(--rose-dark); color:var(--white-warm);}
+
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+a{color:inherit;}
+
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--black);}
+::-webkit-scrollbar-thumb{background:var(--wine); border-radius:10px;}
+
+.section{
+  position:relative;
+  padding:min(14vw,120px) 6vw;
+  max-width:1200px;
+  margin:0 auto;
+}
+.section-narrow{max-width:760px;}
+
+.eyebrow{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:.92rem;
+  color:var(--rose-soft);
+  margin-bottom:18px;
+  letter-spacing:.02em;
+}
+
+h1,h2,h3{font-family:var(--font-display); font-weight:700; line-height:1.28;}
+h2{font-size:clamp(1.9rem, 4.4vw, 3.1rem); margin-bottom:26px;}
+h3{font-size:clamp(1.25rem, 2.4vw, 1.7rem); margin-bottom:14px;}
+p{color:var(--ink-dim); font-size:clamp(1.02rem,1.3vw,1.14rem); max-width:64ch;}
+.lead{font-size:clamp(1.15rem,1.8vw,1.4rem); color:var(--ink); max-width:58ch;}
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:16px 34px;
+  border-radius:999px;
+  background:var(--grad-accent);
+  color:var(--black);
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:1rem;
+  box-shadow:0 10px 30px -8px rgba(230,184,201,.35);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.btn:hover{transform:translateY(-3px) scale(1.02); box-shadow:0 18px 40px -8px rgba(230,184,201,.5);}
+.btn:active{transform:translateY(0) scale(.98);}
+.btn-ghost{
+  background:transparent;
+  color:var(--rose-soft);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+.btn-ghost:hover{background:rgba(230,184,201,.08); box-shadow:none;}
+
+/* reveal on scroll */
+.reveal{opacity:0; transform:translateY(28px); transition:opacity 1s var(--ease), transform 1s var(--ease);}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* glass card */
+.glass{
+  background:linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  backdrop-filter:blur(14px);
+  border-radius:22px;
+}
+
+/* ============================================================
+   1) LOADING SCREEN
+============================================================ */
+#loader{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--black);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:opacity 1.1s var(--ease), visibility 1.1s var(--ease);
+}
+#loader.hide{opacity:0; visibility:hidden; pointer-events:none;}
+.loader-heart{
+  width:64px; height:64px; position:relative; margin-bottom:28px;
+  animation:pulse 1.35s ease-in-out infinite;
+}
+.loader-heart svg{width:100%; height:100%;}
+@keyframes pulse{
+  0%,100%{transform:scale(1); filter:drop-shadow(0 0 10px rgba(230,184,201,.35));}
+  50%{transform:scale(1.14); filter:drop-shadow(0 0 22px rgba(230,184,201,.65));}
+}
+.loader-text{
+  font-family:var(--font-display);
+  font-size:1.05rem;
+  color:var(--ink-dim);
+  letter-spacing:.02em;
+  min-height:1.6em;
+}
+.loader-bar{
+  width:180px; height:2px; background:rgba(255,255,255,.08);
+  margin-top:22px; border-radius:2px; overflow:hidden;
+}
+.loader-bar-fill{height:100%; width:0%; background:var(--grad-accent); transition:width .25s linear;}
+
+/* ============================================================
+   2) BACKGROUND FX — particles / sparkles / hearts (canvas)
+============================================================ */
+#fx-canvas{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;}
+.cursor-glow{
+  position:fixed; width:26px; height:26px; border-radius:50%;
+  background:radial-gradient(circle, rgba(230,184,201,.55), transparent 70%);
+  pointer-events:none; z-index:9998; transform:translate(-50%,-50%);
+  transition:opacity .3s;
+  mix-blend-mode:screen;
+}
+
+main{position:relative; z-index:1;}
+
+/* ============================================================
+   3) NAV DOTS (side progress)
+============================================================ */
+#navdots{
+  position:fixed; left:22px; top:50%; transform:translateY(-50%);
+  z-index:50; display:flex; flex-direction:column; gap:14px;
+}
+#navdots button{
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(255,255,255,.18);
+  transition:all .4s var(--ease);
+}
+#navdots button.active{background:var(--rose-soft); box-shadow:0 0 12px rgba(230,184,201,.7); transform:scale(1.3);}
+@media (max-width:900px){#navdots{display:none;}}
+
+/* ============================================================
+   4) HERO
+============================================================ */
+#hero{
+  min-height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:8vw 6vw;
+  position:relative;
+}
+.hero-eyebrow{
+  font-family:var(--font-display); color:var(--ink-faint); font-size:.98rem;
+  margin-bottom:22px; opacity:0; animation:fadeUp 1s var(--ease) .2s forwards;
+}
+.hero-title{
+  font-size:clamp(2.3rem, 7vw, 4.6rem);
+  font-family:var(--font-display); font-weight:700;
+  max-width:16ch;
+  background:var(--grad-accent);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  opacity:0; animation:fadeUp 1.1s var(--ease) .45s forwards;
+  line-height:1.35;
+}
+.hero-names{
+  margin-top:34px; display:flex; align-items:center; gap:18px;
+  font-family:var(--font-display); font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:600;
+  opacity:0; animation:fadeUp 1.1s var(--ease) .8s forwards;
+}
+.hero-heart-small{width:26px; height:26px; color:var(--rose-dark);}
+.hero-photo-wrap{
+  margin-top:46px; width:min(260px,60vw); aspect-ratio:1;
+  border-radius:50%; overflow:hidden; position:relative;
+  border:2px solid var(--line);
+  box-shadow:0 0 0 10px rgba(230,184,201,.05), 0 30px 60px -20px rgba(0,0,0,.7);
+  opacity:0; animation:fadeUp 1.1s var(--ease) 1.05s forwards;
+}
+.hero-photo-wrap img{width:100%; height:100%; object-fit:cover;}
+.hero-photo-fallback{
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(150deg, var(--wine), var(--purple-deep));
+  font-family:var(--font-display); font-size:.95rem; color:var(--ink-faint); text-align:center; padding:20px;
+}
+.hero-scroll-cue{
+  margin-top:54px; font-size:.85rem; color:var(--ink-faint);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  opacity:0; animation:fadeUp 1s var(--ease) 1.3s forwards;
+}
+.scroll-line{width:1px; height:34px; background:linear-gradient(var(--rose-soft), transparent); animation:scrollLine 2s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0); transform-origin:top;} 50%{transform:scaleY(1); transform-origin:top;} 51%{transform-origin:bottom;} 100%{transform:scaleY(0); transform-origin:bottom;}}
+@keyframes fadeUp{from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:translateY(0);}}
+
+/* ============================================================
+   5) OUR STORY (intro text section)
+============================================================ */
+.story-line{font-size:clamp(1.15rem,2vw,1.55rem); color:var(--ink); margin-bottom:22px; max-width:58ch;}
+.story-line strong{color:var(--rose-soft); font-weight:600;}
+
+/* ============================================================
+   6) TIMELINE
+============================================================ */
+.tl{position:relative; margin-top:60px; padding-inline-start:0;}
+.tl::before{
+  content:''; position:absolute; top:0; bottom:0; right:19px;
+  width:1px; background:linear-gradient(var(--rose-dark), var(--purple-deep));
+}
+@media (min-width:760px){.tl::before{right:50%; margin-right:-.5px;}}
+.tl-item{position:relative; padding-inline-end:56px; margin-bottom:64px;}
+@media (min-width:760px){
+  .tl-item{width:50%; padding-inline-end:56px; padding-inline-start:0;}
+  .tl-item:nth-child(odd){padding-inline-end:56px;}
+  .tl-item:nth-child(even){margin-right:50%; padding-inline-start:56px; padding-inline-end:0; text-align:right;}
+}
+.tl-dot{
+  position:absolute; top:6px; right:12px; width:16px; height:16px; border-radius:50%;
+  background:var(--champagne); box-shadow:0 0 0 5px rgba(241,221,192,.14), 0 0 18px rgba(241,221,192,.5);
+}
+@media (min-width:760px){
+  .tl-item:nth-child(odd) .tl-dot{right:-8px;}
+  .tl-item:nth-child(even) .tl-dot{right:auto; left:-8px;}
+}
+.tl-date{font-family:var(--font-display); color:var(--rose-soft); font-size:.92rem; margin-bottom:6px;}
+.tl-title{font-family:var(--font-display); font-weight:600; font-size:1.25rem; margin-bottom:8px;}
+.tl-text{color:var(--ink-dim); font-size:1rem; max-width:46ch;}
+
+/* ============================================================
+   7) "فاكرة الحتة دي؟" — memory cards grid
+============================================================ */
+.mem-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px; margin-top:44px;}
+.mem-card{
+  padding:30px 26px; position:relative; overflow:hidden;
+  transition:transform .5s var(--ease), border-color .5s;
+}
+.mem-card:hover{transform:translateY(-6px); border-color:rgba(230,184,201,.4);}
+.mem-icon{font-size:1.8rem; margin-bottom:16px; display:block;}
+.mem-card h3{font-size:1.15rem; margin-bottom:10px;}
+.mem-card p{font-size:.98rem;}
+
+/* ============================================================
+   8) LOVE LETTER
+============================================================ */
+#letter{
+  background:linear-gradient(180deg, transparent, rgba(74,18,37,.25) 30%, rgba(74,18,37,.25) 70%, transparent);
+}
+.letter-box{
+  padding:min(8vw,64px) min(7vw,56px);
+  position:relative;
+}
+.letter-box::before{
+  content:'"'; position:absolute; top:6px; right:26px; font-family:var(--font-display);
+  font-size:6rem; color:rgba(230,184,201,.12); line-height:1;
+}
+.letter-body p{
+  font-size:clamp(1.08rem,1.7vw,1.28rem); color:var(--ink); margin-bottom:22px; max-width:62ch;
+}
+.letter-sign{margin-top:36px; font-family:var(--font-display); font-size:1.3rem; color:var(--rose-soft);}
+
+/* ============================================================
+   9) GALLERY
+============================================================ */
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; margin-top:44px;
+}
+.gallery-item{
+  position:relative; aspect-ratio:4/5; border-radius:18px; overflow:hidden;
+  cursor:pointer; border:1px solid var(--line);
+}
+.gallery-item img{width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease);}
+.gallery-item:hover img{transform:scale(1.08);}
+.gallery-fallback{
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-align:center; padding:16px;
+  background:linear-gradient(160deg, var(--purple-deep), var(--wine));
+  font-size:.85rem; color:var(--ink-faint); font-family:var(--font-display);
+}
+.gallery-caption{
+  position:absolute; inset-inline:0; bottom:0; padding:16px 14px 12px;
+  background:linear-gradient(0deg, rgba(0,0,0,.78), transparent);
+  font-size:.88rem; color:var(--white-warm); font-family:var(--font-display);
+  opacity:0; transform:translateY(8px); transition:all .4s var(--ease);
+}
+.gallery-item:hover .gallery-caption{opacity:1; transform:translateY(0);}
+.gallery-tag{
+  position:absolute; top:10px; right:10px; font-size:.7rem; padding:4px 10px; border-radius:999px;
+  background:rgba(10,6,9,.6); backdrop-filter:blur(6px); color:var(--rose-soft); font-family:var(--font-display);
+}
+
+/* lightbox */
+#lightbox{
+  position:fixed; inset:0; z-index:2000; background:rgba(5,3,5,.94);
+  display:flex; align-items:center; justify-content:center; padding:5vw;
+  opacity:0; visibility:hidden; transition:opacity .4s var(--ease), visibility .4s;
+}
+#lightbox.open{opacity:1; visibility:visible;}
+#lightbox img{max-width:min(90vw,720px); max-height:80vh; border-radius:14px; object-fit:contain;}
+#lightbox .lb-cap{margin-top:16px; text-align:center; color:var(--ink-dim); font-family:var(--font-display);}
+#lightbox .lb-close{
+  position:absolute; top:26px; left:26px; font-size:1rem; color:var(--ink-dim);
+  border:1px solid var(--line); border-radius:999px; padding:10px 18px;
+}
+
+/* ============================================================
+   10) MUSIC PLAYER
+============================================================ */
+.player{
+  padding:40px; margin-top:40px; display:flex; flex-direction:column; gap:22px;
+}
+.player-row{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.player-play{
+  width:58px; height:58px; border-radius:50%; background:var(--grad-accent); color:var(--black);
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;
+  transition:transform .35s var(--ease);
+}
+.player-play:hover{transform:scale(1.08);}
+.player-meta{flex:1; min-width:160px;}
+.player-title{font-family:var(--font-display); font-weight:600; font-size:1.05rem;}
+.player-artist{color:var(--ink-faint); font-size:.9rem;}
+.player-bar{
+  height:4px; border-radius:4px; background:rgba(255,255,255,.1); flex:1; min-width:140px;
+  position:relative; cursor:pointer; overflow:hidden;
+}
+.player-bar-fill{height:100%; width:0%; background:var(--grad-accent);}
+.player-time{font-size:.78rem; color:var(--ink-faint); font-variant-numeric:tabular-nums;}
+.playlist{display:flex; flex-direction:column; gap:8px;}
+.playlist-item{
+  display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:14px;
+  transition:background .3s;
+}
+.playlist-item:hover{background:rgba(255,255,255,.04);}
+.playlist-item.active{background:rgba(230,184,201,.08);}
+.playlist-num{width:22px; text-align:center; color:var(--ink-faint); font-size:.85rem;}
+.playlist-info{flex:1;}
+.playlist-info .t{font-family:var(--font-display); font-size:.98rem;}
+.playlist-info .a{font-size:.82rem; color:var(--ink-faint);}
+.playlist-why{font-size:.85rem; color:var(--ink-faint); max-width:34ch; text-align:start;}
+.audio-hint{font-size:.85rem; color:var(--ink-faint); text-align:center;}
+
+/* ============================================================
+   11) OPEN WHEN CARDS
+============================================================ */
+.owc-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; margin-top:44px; perspective:1400px;}
+.owc{
+  height:200px; position:relative; cursor:pointer;
+}
+.owc-inner{
+  position:absolute; inset:0; transition:transform .7s var(--ease); transform-style:preserve-3d;
+}
+.owc.flipped .owc-inner{transform:rotateY(180deg);}
+.owc-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:20px;
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:26px;
+}
+.owc-front{
+  background:linear-gradient(160deg, var(--wine), var(--purple-deep));
+  border:1px solid var(--line);
+  font-family:var(--font-display); font-weight:600; font-size:1.1rem;
+}
+.owc-back{
+  background:linear-gradient(160deg, rgba(230,184,201,.14), rgba(74,18,37,.5));
+  border:1px solid rgba(230,184,201,.35);
+  transform:rotateY(180deg);
+  font-size:.95rem; color:var(--white-warm); overflow-y:auto;
+}
+
+/* ============================================================
+   12) REASONS I LOVE YOU
+============================================================ */
+.reasons-wrap{margin-top:40px; columns:2; column-gap:20px;}
+@media (max-width:640px){.reasons-wrap{columns:1;}}
+.reason{
+  break-inside:avoid; margin-bottom:18px; padding:22px 24px;
+  border-inline-start:2px solid var(--rose-dark);
+}
+.reason-num{font-family:var(--font-display); color:var(--ink-faint); font-size:.8rem; margin-bottom:6px; display:block;}
+.reason p{color:var(--ink); font-size:1rem;}
+
+/* ============================================================
+   13) الحاجات اللي محدش يعرفها
+============================================================ */
+.secrets-list{margin-top:40px; display:flex; flex-direction:column;}
+.secret-row{
+  display:flex; align-items:baseline; gap:18px; padding:22px 4px; border-bottom:1px solid var(--line);
+}
+.secret-row:last-child{border-bottom:none;}
+.secret-tag{font-family:var(--font-display); color:var(--rose-soft); font-size:.85rem; flex-shrink:0; width:110px;}
+.secret-text{color:var(--ink-dim); font-size:1rem;}
+
+/* ============================================================
+   14) بتفكريني بإيه
+============================================================ */
+.remind-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:44px;}
+.remind-card{padding:26px 20px; text-align:center;}
+.remind-cat{font-size:.78rem; color:var(--ink-faint); font-family:var(--font-display); margin-bottom:10px;}
+.remind-val{font-family:var(--font-display); font-weight:600; font-size:1.15rem; margin-bottom:8px;}
+.remind-why{font-size:.9rem; color:var(--ink-dim);}
+
+/* ============================================================
+   15) OUR FUTURE
+============================================================ */
+.future-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px; margin-top:46px;}
+.future-item{padding:28px 22px; text-align:center; transition:transform .5s var(--ease);}
+.future-item:hover{transform:translateY(-5px);}
+.future-icon{font-size:1.7rem; margin-bottom:14px;}
+.future-item h3{font-size:1.05rem; margin-bottom:8px;}
+.future-item p{font-size:.92rem;}
+
+/* ============================================================
+   16) BIRTHDAY
+============================================================ */
+#birthday{
+  background:radial-gradient(80% 100% at 50% 100%, rgba(230,184,201,.1), transparent);
+}
+.bday-card{padding:min(8vw,60px); text-align:center;}
+.bday-date{font-family:var(--font-display); color:var(--rose-soft); font-size:1rem; margin-bottom:18px;}
+
+/* ============================================================
+   17) SECRET MESSAGE / EASTER EGGS
+============================================================ */
+.egg-hint{font-size:.88rem; color:var(--ink-faint); margin-top:16px;}
+#eggHeart{
+  width:64px; height:64px; margin:34px auto 0; cursor:pointer;
+  transition:transform .2s;
+}
+#eggHeart:active{transform:scale(.85);}
+.egg-input-row{display:flex; gap:10px; margin-top:26px; max-width:340px; flex-wrap:wrap;}
+.egg-input{
+  flex:1; min-width:160px; padding:14px 18px; border-radius:999px; background:rgba(255,255,255,.05);
+  border:1px solid var(--line); color:var(--ink); font-family:var(--font-body); font-size:.95rem;
+}
+.egg-input:focus{outline:none; border-color:var(--rose-soft);}
+#eggModal{
+  position:fixed; inset:0; z-index:2100; background:rgba(5,3,5,.92);
+  display:flex; align-items:center; justify-content:center; padding:6vw;
+  opacity:0; visibility:hidden; transition:opacity .5s var(--ease), visibility .5s;
+}
+#eggModal.open{opacity:1; visibility:visible;}
+.egg-modal-box{max-width:520px; text-align:center; padding:min(9vw,56px);}
+.egg-modal-box p{color:var(--white-warm); font-size:1.15rem; margin-bottom:0;}
+.egg-modal-close{margin-top:30px;}
+
+/* ============================================================
+   18) FINAL CINEMATIC ENDING
+============================================================ */
+#finale{
+  min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:10vw 6vw; position:relative; overflow:hidden;
+}
+.finale-line{
+  font-family:var(--font-display); font-size:clamp(1.15rem,2.6vw,1.7rem); color:var(--ink-dim);
+  max-width:34ch; margin-bottom:30px; opacity:0; transform:translateY(16px);
+  transition:opacity 1.1s var(--ease), transform 1.1s var(--ease);
+}
+.finale-line.in{opacity:1; transform:translateY(0);}
+.finale-final{
+  font-family:var(--font-display); font-weight:700; font-size:clamp(2rem,5.5vw,3.4rem);
+  background:var(--grad-accent); -webkit-background-clip:text; background-clip:text; color:transparent;
+  margin-top:14px;
+}
+.finale-glow-heart{width:90px; height:90px; margin:40px auto 0; position:relative;}
+#confetti-canvas{position:fixed; inset:0; z-index:5; pointer-events:none;}
+
+footer{
+  text-align:center; padding:50px 6vw 70px; color:var(--ink-faint); font-size:.85rem;
+}
+
+/* section divider ornament */
+.divider{
+  display:flex; align-items:center; justify-content:center; gap:14px; margin:0 auto 40px; width:fit-content;
+}
+.divider::before, .divider::after{content:''; width:34px; height:1px; background:var(--line);}
+.divider span{color:var(--rose-dark); font-size:.9rem;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     LOADER
+============================================================ -->
+<div id="loader">
+  <div class="loader-heart">
+    <svg viewBox="0 0 32 29" fill="none"><path d="M16 28.2S1 19 1 8.9C1 3.9 4.9 0 9.7 0c2.9 0 5.4 1.5 6.3 4C17 1.5 19.4 0 22.3 0 27.1 0 31 3.9 31 8.9 31 19 16 28.2 16 28.2Z" fill="url(#g)"/><defs><linearGradient id="g" x1="1" y1="0" x2="31" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#e6b8c9"/><stop offset="1" stop-color="#f1ddc0"/></linearGradient></defs></svg>
+  </div>
+  <div class="loader-text" id="loaderText">بنجهزلك حاجة حلوة</div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderBarFill"></div></div>
+</div>
+
+<canvas id="fx-canvas"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<nav id="navdots"></nav>
+
+<main id="mainContent" style="opacity:0; transition:opacity 1s ease;">
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" data-nav="البداية">
+    <div class="hero-eyebrow" id="heroEyebrow"></div>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <div class="hero-names">
+      <svg class="hero-heart-small" viewBox="0 0 24 22" fill="currentColor"><path d="M12 21.5S1 14.6 1 6.9C1 3 4.1 0 7.9 0c2.1 0 4 1 5.1 2.8C14.1 1 16 0 18.1 0 21.9 0 25 3 25 6.9 25 14.6 14 21.5 12 21.5Z" fill="var(--rose-dark)"/></svg>
+      <span id="heroNames"></span>
+    </div>
+    <div class="hero-photo-wrap" id="heroPhotoWrap"></div>
+    <div class="hero-scroll-cue"><div class="scroll-line"></div><span>انزلي تحت</span></div>
+  </section>
+
+  <!-- ============================================================
+       OUR STORY
+  ============================================================ -->
+  <section class="section section-narrow" id="story" data-nav="حكايتنا">
+    <div class="reveal">
+      <span class="eyebrow">حكايتنا</span>
+      <h2>من أول لحظة لحد دلوقتي</h2>
+    </div>
+    <div id="storyLines"></div>
+  </section>
+
+  <!-- ============================================================
+       TIMELINE
+  ============================================================ -->
+  <section class="section" id="timeline" data-nav="التايم لاين">
+    <div class="reveal" style="text-align:center;">
+      <div class="divider"><span>♥</span></div>
+      <span class="eyebrow">خط الزمن</span>
+      <h2>كل حاجة حصلت بينا، بترتيبها</h2>
+    </div>
+    <div class="tl" id="tlList"></div>
+  </section>
+
+  <!-- ============================================================
+       فاكرة الحتة دي
+  ============================================================ -->
+  <section class="section" id="memories" data-nav="فاكرة؟">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">لسه فاكرين</span>
+      <h2>فاكرة الحتة دي يا لولو؟</h2>
+    </div>
+    <div class="mem-grid" id="memGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       LOVE LETTER
+  ============================================================ -->
+  <section class="section" id="letter" data-nav="رسالة">
+    <div class="letter-box glass reveal">
+      <span class="eyebrow">رسالة منّي</span>
+      <div class="letter-body" id="letterBody"></div>
+      <div class="letter-sign">محمد ❤️</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GALLERY
+  ============================================================ -->
+  <section class="section" id="gallery" data-nav="صورنا">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">لحظات</span>
+      <h2>صورنا</h2>
+      <p style="margin:0 auto;">حط صورك في مجلد <code>images/</code> وغيّر الأسماء في CONFIG — هي هتظهر هنا تلقائي.</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       MUSIC PLAYER
+  ============================================================ -->
+  <section class="section section-narrow" id="music" data-nav="أغانينا">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">صوتنا</span>
+      <h2>الأغاني بتاعتنا</h2>
+    </div>
+    <div class="player glass reveal">
+      <div class="player-row">
+        <button class="player-play" id="playBtn" aria-label="شغل">▶</button>
+        <div class="player-meta">
+          <div class="player-title" id="npTitle">اضغطي شغّلي</div>
+          <div class="player-artist" id="npArtist">—</div>
+        </div>
+      </div>
+      <div class="player-row">
+        <span class="player-time" id="curTime">0:00</span>
+        <div class="player-bar" id="playerBar"><div class="player-bar-fill" id="playerBarFill"></div></div>
+        <span class="player-time" id="durTime">0:00</span>
+      </div>
+      <div class="audio-hint" id="audioHint">هتحتاجي تضغطي بلاي أول مرة عشان المتصفح بيمنع التشغيل التلقائي.</div>
+      <div class="playlist" id="playlist"></div>
+    </div>
+    <audio id="audioEl" preload="none"></audio>
+  </section>
+
+  <!-- ============================================================
+       OPEN WHEN CARDS
+  ============================================================ -->
+  <section class="section" id="openwhen" data-nav="افتحي دي">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">وقت ما تحتاجيني</span>
+      <h2>افتحي دي لما...</h2>
+      <p style="margin:0 auto;">دوسي على أي كارت تفتحه.</p>
+    </div>
+    <div class="owc-grid" id="owcGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       REASONS I LOVE YOU
+  ============================================================ -->
+  <section class="section section-narrow" id="reasons" data-nav="ليه بحبك">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">من غير مبالغة</span>
+      <h2>ليه أنا بحبك</h2>
+    </div>
+    <div class="reasons-wrap" id="reasonsList"></div>
+  </section>
+
+  <!-- ============================================================
+       الحاجات اللي محدش يعرفها
+  ============================================================ -->
+  <section class="section section-narrow" id="secrets" data-nav="خاص بينا">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">بينا إحنا بس</span>
+      <h2>الحاجات اللي محدش يعرفها</h2>
+    </div>
+    <div class="secrets-list glass" id="secretsList" style="padding:10px 30px;"></div>
+  </section>
+
+  <!-- ============================================================
+       بتفكريني بإيه
+  ============================================================ -->
+  <section class="section" id="reminders" data-nav="بتفكريني">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">حواليا وأنا فاكرك</span>
+      <h2>إنتِ بتفكريني بإيه</h2>
+    </div>
+    <div class="remind-grid" id="remindGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       OUR FUTURE
+  ============================================================ -->
+  <section class="section" id="future" data-nav="بكرة">
+    <div class="reveal" style="text-align:center;">
+      <div class="divider"><span>♥</span></div>
+      <span class="eyebrow">الكلام الجاي</span>
+      <h2>اللي جاي بيننا</h2>
+    </div>
+    <div class="future-grid" id="futureGrid"></div>
+  </section>
+
+  <!-- ============================================================
+       BIRTHDAY
+  ============================================================ -->
+  <section class="section section-narrow" id="birthday" data-nav="عيد ميلادك">
+    <div class="bday-card glass reveal">
+      <div class="bday-date" id="bdayDate"></div>
+      <h2 id="bdayTitle">كل سنة وانتِ طيبة يا قمر</h2>
+      <p id="bdayText"></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECRET MESSAGE / EASTER EGGS
+  ============================================================ -->
+  <section class="section section-narrow" id="secretmsg" data-nav="سر">
+    <div class="reveal" style="text-align:center;">
+      <span class="eyebrow">سر صغير</span>
+      <h2>فيه حاجات مخبية هنا</h2>
+      <p style="margin:0 auto;">دوسي على القلب كذا مرة... أو جربي تكتبي كلمة سر تحتنا نعرفها إحنا الاتنين بس.</p>
+      <svg id="eggHeart" viewBox="0 0 32 29" fill="none"><path d="M16 28.2S1 19 1 8.9C1 3.9 4.9 0 9.7 0c2.9 0 5.4 1.5 6.3 4C17 1.5 19.4 0 22.3 0 27.1 0 31 3.9 31 8.9 31 19 16 28.2 16 28.2Z" fill="url(#g2)"/><defs><linearGradient id="g2" x1="1" y1="0" x2="31" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#e6b8c9"/><stop offset="1" stop-color="#8a2f47"/></linearGradient></defs></svg>
+      <div class="egg-hint" id="eggProgress">دوسي عليه ٧ مرات ✨</div>
+      <div class="egg-input-row" style="margin-inline:auto;">
+        <input type="text" class="egg-input" id="eggInput" placeholder="اكتبي كلمة السر هنا">
+        <button class="btn btn-ghost" id="eggSubmit">افتحي</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINAL CINEMATIC ENDING
+  ============================================================ -->
+  <section id="finale" data-nav="النهاية">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="finale-line" id="fl1"></div>
+    <div class="finale-line" id="fl2"></div>
+    <div class="finale-line" id="fl3"></div>
+    <div class="finale-line" id="fl4"></div>
+    <div class="finale-line" id="fl5"></div>
+    <div class="finale-final" id="flFinal"></div>
+    <div class="finale-glow-heart" id="finaleHeart">
+      <svg viewBox="0 0 32 29" fill="none" style="width:100%;height:100%;"><path d="M16 28.2S1 19 1 8.9C1 3.9 4.9 0 9.7 0c2.9 0 5.4 1.5 6.3 4C17 1.5 19.4 0 22.3 0 27.1 0 31 3.9 31 8.9 31 19 16 28.2 16 28.2Z" fill="url(#g3)"/><defs><linearGradient id="g3" x1="1" y1="0" x2="31" y2="28" gradientUnits="userSpaceOnUse"><stop stop-color="#e6b8c9"/><stop offset="1" stop-color="#f1ddc0"/></linearGradient></defs></svg>
+    </div>
+  </section>
+
+  <footer>
+    صُنع بحب... ومراجعة كتير للكود، عشان يبقى يليق بيكي. 🤍
+  </footer>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" id="lbClose">إغلاق ✕</button>
+  <div>
+    <img id="lbImg" src="" alt="">
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<!-- EASTER EGG MODAL -->
+<div id="eggModal">
+  <div class="egg-modal-box glass">
+    <p id="eggModalText"></p>
+    <button class="btn egg-modal-close" id="eggModalClose">قفل</button>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   ======================  EASY SETTINGS  ========================
+   كل حاجة محتاج تغيّرها موجودة هنا. متلمسش باقي الكود لو مش لازم.
+================================================================ */
+
+const CONFIG = {
+  // ---- الأسماء والتواريخ ----
+  myName: "محمد",
+  girlfriendName: "لولو",
+  girlfriendNickname2: "لولتي",
+  girlfriendFullName: "الاء إبراهيم الخميسي",
+  nameHeCallsHer: ["لولو", "لولتي"],
+  nameSheCallsHim: ["محاميحو", "حمودي"],
+
+  relationshipStart: "2026-05-16", // أول كلام على واتساب
+  birthday: "2003-09-12",          // عيد ميلاد لولو
+
+  // ---- الصورة الرئيسية في الهيرو ----
+  // حطي صورة اسمها hero.jpg جوه مجلد images وخليها هنا
+  heroImage: "images/hero.jpg",
+
+  // ---- الأغاني ----
+  // حطي ملفات الأغاني جوه مجلد music وغيّري اسم الملف هنا بس
+  songs: [
+    {
+      title: "لمستك نسيت الحياة",
+      artist: "عمرو مصطفى",
+      file: "music/lomsetek.mp3",
+      why: "أول أغنية طلبت من لولو تحفظها، عشان يوم هنرقص عليها Slow."
+    },
+    {
+      title: "أنا قدرك ونصيبك",
+      artist: "جورج وسوف",
+      file: "music/ana-qadrak.mp3",
+      why: "لولو غنتهالي بصوتها. مش مهم صوتها عامل إزاي، المهم إنها هي اللي غنتها."
+    }
+  ]
+};
+
+/* ================================================================
+   ======================  SUPER SIMPLE PHOTOS  ==================
+   عشان تضيفي صورة: حطيها في مجلد images/ وضيفي سطر هنا زي الباقي.
+   لو الصورة مش موجودة، الموقع هيعرض شكل بديل حلو من غير ما يبوظ.
+================================================================ */
+const PHOTOS = [
+  { image: "images/photo1.jpg", title: "أول صورة ليكي", description: "أول صورة حطيتها هنا، هتحطي مكانها صورة حقيقية بعدين." },
+  { image: "images/photo2.jpg", title: "من الـ AI", description: "صورة عملتهالنا بالذكاء الاصطناعي لأننا لسه معملناش صورة حقيقية سوا. عجبتك أوي فتحطيت هنا." },
+  { image: "images/photo3.jpg", title: "ذكرى", description: "مكان لصورة من ذكرياتنا — غيّري الوصف ده بالذكرى الحقيقية." },
+  { image: "images/photo4.jpg", title: "صورة ليكي وحدك", description: "أنا بحب أشوفك في أي صورة، حتى لو مش معايا فيها." },
+  { image: "images/photo5.jpg", title: "صورة ليا", description: "علشان تفتكريني بردو وأنا مش قصادك." },
+  { image: "images/photo6.jpg", title: "مستقبل", description: "مكان محجوز لصورة لسه هنعملها سوا." }
+];
+
+/* ================================================================
+   TIMELINE — خط زمن العلاقة
+================================================================ */
+const TIMELINE = [
+  { date: "16 مايو 2026", title: "أول كلمة بينا", text: "شيماء بنت خالتي عرفتنا على بعض، وأول كلام كان على واتساب. يومها لسه محدش فينا فاكر هيوصل لفين الموضوع." },
+  { date: "بعدها بشوية", title: "أول مرة اتقابلنا", text: "اتقابلنا في بيت شيماء. أنا كنت راكب الموتوسيكل، وانتِ كنتي مكسوفة شوية ومش واخدة راحتك. أنا كنت مبسوط إني أخيرًا شايفك قدامي." },
+  { date: "الأيام اللي بعدها", title: "الشات طول اليوم", text: "بدأنا نتكلم طول اليوم شات. ومن غير ما أحس، بقيتي جزء تابت من يومي." },
+  { date: "لحظة مهمة", title: "الخناقة والصلح", text: "حصل بينا زعل أو خناقة، وأنا صالحتك في مكالمة. من هنا حسيت فعلًا إني اتعلقت بيكي، مش بس بحبك." },
+  { date: "موقف نتفكره", title: "الكنبة وجوز خالتي", text: "قاعدين سوا على الكنبة، وجوز خالتي جه قعد معانا من غير ما يفهم حاجة. لسه بنضحك على الموقف ده." },
+  { date: "ذكرى غالية", title: "الإنسيالين", text: "جبتلك إنسيال، وجبت واحد ليا بنفس الشكل. بتاعك دهب وبتاعي فضة. مش هدية، دي علامة إننا مرتبطين ببعض." },
+  { date: "يوم مهم", title: "نينتي", text: "كنت مضايق ومش عارف من إيه. جيتي شفتيني، بمخاطرة منك عشان محدش يعرف عننا. مجرد شوفتك خلتني أبقى كويس." }
+];
+
+/* ================================================================
+   "فاكرة الحتة دي؟" — بطاقات ذكريات خفيفة
+================================================================ */
+const MEMORY_CARDS = [
+  { icon: "🏍️", title: "الموتوسيكل وأول لقاء", text: "جيت بيت شيماء بالموتوسيكل، وانتِ كنتي مكسوفة شوية. أنا كنت بس مركز في وشك." },
+  { icon: "🛋️", title: "جوز خالتي على الكنبة", text: "قاعدين إحنا الاتنين، وهو جه قعد معانا من غير ما يفهم حاجة أبدًا. موقف هزار لحد دلوقتي." },
+  { icon: "🌙", title: "يوم نينتي", text: "مش فاكر كنت مضايق من إيه، بس فاكر كويس إني بقيت كويس أول ما شوفتك." },
+  { icon: "💍", title: "الإنسيالين", text: "دهب ليكي، فضة ليا. نفس الشكل. حاجة صغيرة، بس فاكرها كويس." },
+  { icon: "🎵", title: "لمستك نسيت الحياة", text: "أول أغنية قلتلك احفظيها، عشان هنرقص عليها Slow يوم من الأيام." },
+  { icon: "🎤", title: "صوتك وأنا قدرك ونصيبك", text: "غنيتيهالي، وأنا حبيت صوتك مش لأنه أحلى صوت، لأنه صوتك انتِ." }
+];
+
+/* ================================================================
+   LOVE LETTER — رسالة الحب — عدّليها زي ما تحبي
+================================================================ */
+const LOVE_LETTER = [
+  "يا لولو، أنا مش عارف أبدأ إزاي، فهكتب بس زي ما بيجيلي في بالي.",
+  "من يوم 16 مايو، لما شيماء عرفتنا على بعض وكلمناكي أول مرة على واتساب، أنا حسيت إن فيه حاجة مختلفة. ولما اتقابلنا في بيتها، وانتِ كنتي مكسوفة شوية، أنا كنت بس مبسوط إني شايفك قدامي.",
+  "بعدين بقينا نتكلم طول اليوم، وأنا مش فاكر بالظبط إمتى الموضوع بقى جد، بس فاكر إن يوم ما حصل بينا زعل، وأنا صالحتك في مكالمة، ساعتها حسيت إني اتعلقت بيكي فعلًا.",
+  "وفاكر يوم الكنبة، وجوز خالتي جه قعد معانا من غير ما يفهم حاجة. لسه بنضحك على ده لحد دلوقتي.",
+  "وفاكر الإنسيالين، بتاعك دهب وبتاعي فضة. مش عايز حد يفتكرها إني بجيب هدايا، هي بالنسبالي علامة إننا مرتبطين ببعض.",
+  "وأهم حاجة، فاكر يوم نينتي. كنت مضايق ومش عارف من إيه، وانتِ جيتي شفتيني بمخاطرة منك، عشان محدش يعرف عننا. مجرد شوفتك خلاني أبقى كويس. أنا مقدّر ده جدًا.",
+  "ضحكتك من أكتر حاجة بتخليني أبتسم غصب عني. وجدعنتك وهزارك وحنانك، كل ده حاجات أنا مش بنساها.",
+  "أنا نفسي أشتغل، وأتقدملك، وأخطبك، وأتجوزك. ونصحى يوم ونلاقي عمرو ويوسف بيجروا في البيت.",
+  "يمكن قصتنا لسه في أولها، بس أنا عارف أنا نفسي أوصل بيها لفين. وأهم حاجة، مايبقاش جواكي ولا لحظة شك إني بحبك."
+];
+
+/* ================================================================
+   OPEN WHEN CARDS
+================================================================ */
+const OPEN_WHEN = [
+  { title: "افتحي دي لما تزعلي", text: "زعلك بيوجعني، بس خدي وقتك. أنا هنا، مش هروح حتة. وأي حاجة تضايقك، قوليهالي، مش هحكم عليكي." },
+  { title: "افتحي دي لما توحشيني", text: "لو توحشتيني، اعرفي إني بفكر فيكي أكتر مما بتتخيلي. مش دايمًا بقولها، بس هي موجودة." },
+  { title: "افتحي دي لما تشكي فيا", text: "لو حصل وشكيتي، تعالي كلميني مباشرة. مش عايز الشك يكبر جواكي لوحده. أنا واضح معاكي وكفاية كده." },
+  { title: "افتحي دي لما تحتاجي تسمعي كلام مني", text: "إنتِ حاجة كويسة حصلتلي، وأنا مش نادم على يوم من اللي بينا. خديها مني كده." },
+  { title: "افتحي دي لما تكوني مبسوطة", text: "لو انتِ مبسوطة، أنا مبسوط. ابعتيلي إيموجي بس عشان أعرف وأفرح معاكي من بعيد." },
+  { title: "افتحي دي في يوم عادي", text: "حتى في يوم عادي من غير مناسبة، أنا لسه بفكر فيكي. مفيش يوم فاضي منك خالص." }
+];
+
+/* ================================================================
+   REASONS I LOVE YOU
+================================================================ */
+const REASONS = [
+  "ضحكتك — من أكتر حاجة بتخليني أبتسم غصب عني.",
+  "جدعنتك في تعاملك.",
+  "بتحبي الهزار زيي بالظبط.",
+  "مش شخصية قفيلة، بتفضي مجالك للي حواليكي.",
+  "حنانك، حتى في التفاصيل الصغيرة.",
+  "طريقتك المميزة في الكلام.",
+  "شكلك، أنا شايفك قمر بجد.",
+  "جيتي عند نينتي وأنا مضايق، بمخاطرة منك.",
+  "غنيتيلي بصوتك، وأنا بحبه لأنه بتاعك.",
+  "اهتمامك بيا حتى في أبسط التفاصيل."
+];
+
+/* ================================================================
+   الحاجات اللي محدش يعرفها — أضيفي أكتر وقت ما تحبي
+================================================================ */
+const SECRETS = [
+  { tag: "أسماء الدلع", text: "أنا بقولك لولو أو لولتي، وانتِ بتقوليلي محاميحو أو حمودي." },
+  { tag: "الإنسيالين", text: "دهب ليكي، فضة ليا، نفس الشكل. علامة صغيرة بينا." },
+  { tag: "المكان الفاضي", text: "هنا مكانك تضيفي أي inside joke أو استيكر أو تفصيلة صغيرة بينا." },
+  { tag: "المكان الفاضي", text: "وهنا تفصيلة تانية تحبي تحطيها، من غير ما حد غيرنا يفهمها." }
+];
+
+/* ================================================================
+   بتفكريني بإيه — أضيفي واحذفي براحتك
+================================================================ */
+const REMINDERS = [
+  { cat: "أغنية", val: "لمستك نسيت الحياة", why: "أول أغنية قلتلك تحفظيها." },
+  { cat: "مكان", val: "بيت شيماء", why: "من هنا كل حاجة بدأت." },
+  { cat: "كلمة", val: "لولتي", why: "بقولهالك وأنا مش حاسس." },
+  { cat: "موقف", val: "نينتي", why: "يوم جيتي شفتيني وأنا مضايق." }
+];
+
+/* ================================================================
+   OUR FUTURE
+================================================================ */
+const FUTURE = [
+  { icon: "💼", title: "شغلي", text: "أرتب حياتي وشغلي كويس، عشان أقدر أبني بينا حاجة تدوم." },
+  { icon: "💍", title: "أتقدملك", text: "يوم يجيلي فيه أقدر أتقدملك بجد، مش بس بالكلام." },
+  { icon: "🤍", title: "الخطوبة والجواز", text: "نخطب، ونتجوز، ونبدأ حياتنا احنا الاتنين رسمي." },
+  { icon: "🏡", title: "بيتنا", text: "بيت بينا إحنا الاتنين، بتفاصيل صغيرة زي اللي بينا دلوقتي." },
+  { icon: "👶", title: "عمرو ويوسف", text: "بإذن الله نخلف عمرو ويوسف، ونصحى يوم نلاقيهم بيجروا في البيت." },
+  { icon: "♾️", title: "الأيام الجاية", text: "كل يوم لسه هنعمله مع بعض، بالنسبالي هدية." }
+];
+
+/* ================================================================
+   EASTER EGG — كلمة السر ورسالتها
+   غيّري الكلمة والرسالة زي ما تحبي
+================================================================ */
+const SECRET_PASSWORD = "لولو";
+const SECRET_MESSAGE = "لو وصلتي للرسالة دي، يبقى انتِ فعلاً دورتي كويس. وده بالظبط اللي بحبه فيكي، إنك بتدوري وبتهتمي. أنا بحبك يا لولو، أكتر مما بعرف أشرحه.";
+const HEART_CLICK_MESSAGE = "كل ضغطة على القلب ده، فيها جزء من قلبي بجد. أنا بحبك يا لولتي.";
+const HEART_CLICK_TARGET = 7;
+
+/* ================================================================
+   ====================  END OF EASY SETTINGS  ===================
+   من هنا وتحت، منطق الموقع. مش محتاج تلمسه إلا لو انتِ مبرمج.
+================================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---------- helpers ---------- */
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+  const esc = (str) => String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function daysBetween(dateStr){
+    const start = new Date(dateStr + 'T00:00:00');
+    const now = new Date();
+    return Math.max(0, Math.floor((now - start) / 86400000));
+  }
+
+  function imgWithFallback(src, alt, fallbackHTML, extraClass=''){
+    const wrap = document.createElement('div');
+    wrap.className = extraClass;
+    const img = new Image();
+    img.alt = esc(alt);
+    img.loading = 'lazy';
+    img.onerror = () => { wrap.innerHTML = fallbackHTML; };
+    img.onload = () => { wrap.innerHTML=''; wrap.appendChild(img); };
+    img.src = src;
+    wrap.appendChild(img);
+    return wrap;
+  }
+
+  /* ================================================================
+     LOADER SEQUENCE
+  ================================================================ */
+  const loaderMsgs = ["بنجهزلك حاجة حلوة", "بنرتب الذكريات", "بنحط الأغاني في مكانها", "خلصنا تقريبًا"];
+  let li = 0;
+  const loaderTextEl = $('#loaderText');
+  const loaderFill = $('#loaderBarFill');
+  let progress = 0;
+  const loaderInterval = setInterval(() => {
+    progress = Math.min(100, progress + Math.random()*22);
+    loaderFill.style.width = progress + '%';
+    if (progress > (li+1)*23 && li < loaderMsgs.length-1){
+      li++;
+      loaderTextEl.textContent = loaderMsgs[li];
+    }
+    if (progress >= 100){
+      clearInterval(loaderInterval);
+      setTimeout(finishLoading, 350);
+    }
+  }, 220);
+
+  function finishLoading(){
+    $('#loader').classList.add('hide');
+    $('#mainContent').style.opacity = '1';
+    initHeartbeatIntro();
+  }
+
+  /* ================================================================
+     HERO CONTENT
+  ================================================================ */
+  const startDateFormatted = new Date(CONFIG.relationshipStart + 'T00:00:00').toLocaleDateString('ar-EG-u-nu-latn', { day:'numeric', month:'long', year:'numeric' });
+  $('#heroEyebrow').textContent = `في وسط كل الحكايات اللي ممكن تحصل في العمر...`;
+  $('#heroTitle').textContent = `حكايتي المفضلة بدأت يوم ${startDateFormatted}`;
+  $('#heroNames').textContent = `${CONFIG.myName} × ${CONFIG.girlfriendName}`;
+
+  const heroWrap = $('#heroPhotoWrap');
+  heroWrap.appendChild(imgWithFallback(
+    CONFIG.heroImage, CONFIG.girlfriendName,
+    `<div class="hero-photo-fallback">حطي صورتك هنا<br><span style="opacity:.6;font-size:.8rem;">images/hero.jpg</span></div>`
+  ));
+
+  /* ================================================================
+     OUR STORY
+  ================================================================ */
+  const storyLines = [
+    `<strong>شيماء</strong>، بنت خالتي، عرفتني عليكي. وأول كلمة بينا كانت على واتساب يوم <strong>${startDateFormatted}</strong>.`,
+    `اتقابلنا بعدها في بيتها. أنا جيت بالموتوسيكل، وانتِ كنتي مكسوفة شوية ومش واخدة راحتك.`,
+    `أول حاجة شدتني فيكي كانت ضحكتك، وطريقتك في الكلام، وشكلك. أنا شايفك قمر.`,
+    `بعدين بقينا نتكلم طول اليوم، وأنا حسيت إني اتعلقت بيكي فعلًا لما حصل بينا زعل، وصالحتك في مكالمة.`,
+    `من ساعتها إحنا بنبني حاجة، خطوة خطوة، بجد ومن غير استعراض.`
+  ];
+  const storyBox = $('#storyLines');
+  storyLines.forEach(line => {
+    const p = document.createElement('p');
+    p.className = 'story-line reveal';
+    p.innerHTML = line;
+    storyBox.appendChild(p);
+  });
+
+  /* ================================================================
+     TIMELINE
+  ================================================================ */
+  const tlList = $('#tlList');
+  TIMELINE.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'tl-item reveal';
+    el.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-date">${esc(item.date)}</div>
+      <div class="tl-title">${esc(item.title)}</div>
+      <div class="tl-text">${esc(item.text)}</div>
+    `;
+    tlList.appendChild(el);
+  });
+
+  /* ================================================================
+     MEMORY CARDS
+  ================================================================ */
+  const memGrid = $('#memGrid');
+  MEMORY_CARDS.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'mem-card glass reveal';
+    el.innerHTML = `<span class="mem-icon">${m.icon}</span><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p>`;
+    memGrid.appendChild(el);
+  });
+
+  /* ================================================================
+     LOVE LETTER
+  ================================================================ */
+  const letterBody = $('#letterBody');
+  LOVE_LETTER.forEach(p => {
+    const el = document.createElement('p');
+    el.textContent = p;
+    letterBody.appendChild(el);
+  });
+
+  /* ================================================================
+     GALLERY + LIGHTBOX
+  ================================================================ */
+  const galleryGrid = $('#galleryGrid');
+  PHOTOS.forEach((photo, idx) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item reveal';
+    const imgBox = imgWithFallback(
+      photo.image, photo.title,
+      `<div class="gallery-fallback">📷<br>${esc(photo.title)}</div>`
+    );
+    imgBox.style.width = '100%'; imgBox.style.height = '100%';
+    item.appendChild(imgBox);
+    const tag = document.createElement('span');
+    tag.className = 'gallery-tag';
+    tag.textContent = idx+1;
+    item.appendChild(tag);
+    const cap = document.createElement('div');
+    cap.className = 'gallery-caption';
+    cap.textContent = photo.title;
+    item.appendChild(cap);
+    item.addEventListener('click', () => openLightbox(photo));
+    galleryGrid.appendChild(item);
+  });
+
+  const lightbox = $('#lightbox');
+  const lbImg = $('#lbImg');
+  const lbCap = $('#lbCap');
+  function openLightbox(photo){
+    lbImg.onerror = () => { lbImg.style.display='none'; };
+    lbImg.onload = () => { lbImg.style.display='block'; };
+    lbImg.src = photo.image;
+    lbImg.alt = photo.title;
+    lbCap.textContent = `${photo.title} — ${photo.description}`;
+    lightbox.classList.add('open');
+  }
+  $('#lbClose').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+
+  /* ================================================================
+     MUSIC PLAYER
+  ================================================================ */
+  const audioEl = $('#audioEl');
+  const playBtn = $('#playBtn');
+  const npTitle = $('#npTitle');
+  const npArtist = $('#npArtist');
+  const playerBar = $('#playerBar');
+  const playerBarFill = $('#playerBarFill');
+  const curTimeEl = $('#curTime');
+  const durTimeEl = $('#durTime');
+  const audioHint = $('#audioHint');
+  const playlistEl = $('#playlist');
+  let currentSong = 0;
+  let isPlaying = false;
+
+  function fmtTime(s){
+    if (!isFinite(s)) return '0:00';
+    const m = Math.floor(s/60); const sec = Math.floor(s%60);
+    return `${m}:${sec.toString().padStart(2,'0')}`;
+  }
+
+  function renderPlaylist(){
+    playlistEl.innerHTML = '';
+    CONFIG.songs.forEach((song, i) => {
+      const row = document.createElement('div');
+      row.className = 'playlist-item' + (i===currentSong ? ' active' : '');
+      row.innerHTML = `
+        <span class="playlist-num">${i+1}</span>
+        <div class="playlist-info"><div class="t">${esc(song.title)}</div><div class="a">${esc(song.artist)}</div></div>
+        <div class="playlist-why">${esc(song.why)}</div>
+      `;
+      row.addEventListener('click', () => loadSong(i, true));
+      playlistEl.appendChild(row);
+    });
+  }
+
+  function loadSong(i, autoplay){
+    currentSong = i;
+    const song = CONFIG.songs[i];
+    audioEl.src = song.file;
+    npTitle.textContent = song.title;
+    npArtist.textContent = song.artist;
+    renderPlaylist();
+    if (autoplay){
+      audioEl.play().then(()=>{ isPlaying = true; playBtn.textContent='❚❚'; audioHint.style.display='none'; })
+        .catch(()=>{ audioHint.textContent = 'مش لاقي ملف الأغنية — حطيه في مجلد music/ زي ما هو مكتوب في CONFIG.'; });
+    }
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (!audioEl.src){ loadSong(0, true); return; }
+    if (isPlaying){ audioEl.pause(); isPlaying=false; playBtn.textContent='▶'; }
+    else {
+      audioEl.play().then(()=>{ isPlaying=true; playBtn.textContent='❚❚'; audioHint.style.display='none'; })
+        .catch(()=>{ audioHint.textContent = 'المتصفح محتاج تفاعل مباشر — دوسي تاني على بلاي.'; });
+    }
+  });
+
+  audioEl.addEventListener('timeupdate', () => {
+    if (audioEl.duration){
+      playerBarFill.style.width = (audioEl.currentTime/audioEl.duration*100) + '%';
+      curTimeEl.textContent = fmtTime(audioEl.currentTime);
+    }
+  });
+  audioEl.addEventListener('loadedmetadata', () => { durTimeEl.textContent = fmtTime(audioEl.duration); });
+  audioEl.addEventListener('ended', () => {
+    const next = (currentSong+1) % CONFIG.songs.length;
+    loadSong(next, true);
+  });
+  playerBar.addEventListener('click', (e) => {
+    if (!audioEl.duration) return;
+    const rect = playerBar.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    audioEl.currentTime = ratio * audioEl.duration;
+  });
+
+  renderPlaylist();
+
+  /* ================================================================
+     OPEN WHEN CARDS
+  ================================================================ */
+  const owcGrid = $('#owcGrid');
+  OPEN_WHEN.forEach(card => {
+    const el = document.createElement('div');
+    el.className = 'owc reveal';
+    el.innerHTML = `
+      <div class="owc-inner">
+        <div class="owc-face owc-front">${esc(card.title)}</div>
+        <div class="owc-face owc-back">${esc(card.text)}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => el.classList.toggle('flipped'));
+    owcGrid.appendChild(el);
+  });
+
+  /* ================================================================
+     REASONS
+  ================================================================ */
+  const reasonsList = $('#reasonsList');
+  REASONS.forEach((r, i) => {
+    const el = document.createElement('div');
+    el.className = 'reason reveal';
+    el.innerHTML = `<span class="reason-num">${String(i+1).padStart(2,'0')}</span><p>${esc(r)}</p>`;
+    reasonsList.appendChild(el);
+  });
+
+  /* ================================================================
+     SECRETS
+  ================================================================ */
+  const secretsList = $('#secretsList');
+  SECRETS.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'secret-row';
+    el.innerHTML = `<span class="secret-tag">${esc(s.tag)}</span><span class="secret-text">${esc(s.text)}</span>`;
+    secretsList.appendChild(el);
+  });
+
+  /* ================================================================
+     REMINDERS
+  ================================================================ */
+  const remindGrid = $('#remindGrid');
+  REMINDERS.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'remind-card glass reveal';
+    el.innerHTML = `<div class="remind-cat">${esc(r.cat)}</div><div class="remind-val">${esc(r.val)}</div><div class="remind-why">${esc(r.why)}</div>`;
+    remindGrid.appendChild(el);
+  });
+
+  /* ================================================================
+     FUTURE
+  ================================================================ */
+  const futureGrid = $('#futureGrid');
+  FUTURE.forEach(f => {
+    const el = document.createElement('div');
+    el.className = 'future-item glass reveal';
+    el.innerHTML = `<div class="future-icon">${f.icon}</div><h3>${esc(f.title)}</h3><p>${esc(f.text)}</p>`;
+    futureGrid.appendChild(el);
+  });
+
+  /* ================================================================
+     BIRTHDAY
+  ================================================================ */
+  const bdayDateFormatted = new Date(CONFIG.birthday + 'T00:00:00').toLocaleDateString('ar-EG-u-nu-latn', { day:'numeric', month:'long' });
+  $('#bdayDate').textContent = `عيد ميلادك: ${bdayDateFormatted}`;
+  $('#bdayText').textContent = `كل سنة وانتِ طيبة يا ${CONFIG.girlfriendName}. يوم ميلادك بالنسبالي مش يوم عادي، هو اليوم اللي الدنيا كسبت فيه حد زيك. نفسي كل سنة أكون جنبك في اليوم ده أكتر وأكتر.`;
+
+  /* ================================================================
+     EASTER EGGS
+  ================================================================ */
+  const eggModal = $('#eggModal');
+  const eggModalText = $('#eggModalText');
+  function showEggModal(text){
+    eggModalText.textContent = text;
+    eggModal.classList.add('open');
+  }
+  $('#eggModalClose').addEventListener('click', () => eggModal.classList.remove('open'));
+  eggModal.addEventListener('click', (e) => { if (e.target===eggModal) eggModal.classList.remove('open'); });
+
+  let heartClicks = 0;
+  const eggHeart = $('#eggHeart');
+  const eggProgress = $('#eggProgress');
+  eggHeart.addEventListener('click', () => {
+    heartClicks++;
+    burstHeartsAt(eggHeart);
+    if (heartClicks >= HEART_CLICK_TARGET){
+      eggProgress.textContent = 'يااااه لقيتيها! 🎉';
+      showEggModal(HEART_CLICK_MESSAGE);
+      heartClicks = 0;
+    } else {
+      eggProgress.textContent = `${heartClicks} من ${HEART_CLICK_TARGET} 🤍`;
+    }
+  });
+
+  $('#eggSubmit').addEventListener('click', tryPassword);
+  $('#eggInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryPassword(); });
+  function tryPassword(){
+    const val = $('#eggInput').value.trim();
+    if (val === SECRET_PASSWORD){
+      showEggModal(SECRET_MESSAGE);
+      $('#eggInput').value = '';
+    } else if (val.length){
+      $('#eggInput').style.borderColor = 'var(--rose-dark)';
+      setTimeout(()=>{ $('#eggInput').style.borderColor=''; }, 700);
+    }
+  }
+
+  // double-click any gallery photo = mini easter egg too
+  galleryGrid.addEventListener('dblclick', (e) => {
+    const item = e.target.closest('.gallery-item');
+    if (item) showEggModal('كل صورة هنا، حتى لو مش حقيقية، أنا متخيلها بينا. وهفضل أضيف صور حقيقية أكتر كل ما نتقابل.');
+  });
+
+  /* ================================================================
+     FINALE — CINEMATIC ENDING
+  ================================================================ */
+  const finaleLines = [
+    { id:'fl1', text: `ولولو... قبل ما تخرجي من هنا، عايزك تعرفي حاجة.` },
+    { id:'fl2', text: `يمكن لسه قصتنا في أولها، بس أنا عارف أنا نفسي أوصل بيها لفين.` },
+    { id:'fl3', text: `أنا نفسي أشتغل، وأتقدملك، وأخطبك، وأتجوزك...` },
+    { id:'fl4', text: `ونصحى في يوم ونلاقي عمرو ويوسف بيجروا في البيت 😂❤️` },
+    { id:'fl5', text: `وأهم حاجة... مايبقاش جواكي ولا لحظة شك إني بحبك.` },
+  ];
+  finaleLines.forEach(l => { $('#'+l.id).textContent = l.text; });
+  $('#flFinal').textContent = `أنا بحبك يا لولو، أكتر مما بعرف أشرحه.`;
+
+  /* ================================================================
+     SCROLL REVEAL (IntersectionObserver)
+  ================================================================ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  $$('.reveal').forEach(el => revealObserver.observe(el));
+
+  // finale lines reveal in sequence + confetti trigger
+  let finaleTriggered = false;
+  const finaleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !finaleTriggered){
+        finaleTriggered = true;
+        finaleLines.forEach((l, i) => {
+          setTimeout(() => { $('#'+l.id).classList.add('in'); }, i*900);
+        });
+        setTimeout(() => {
+          $('#flFinal').style.transition = 'opacity 1.4s ease, transform 1.4s ease';
+          $('#flFinal').style.opacity = '1';
+          launchConfetti();
+        }, finaleLines.length*900 + 300);
+      }
+    });
+  }, { threshold: 0.4 });
+  $('#flFinal').style.opacity = '0';
+  $('#flFinal').style.transform = 'translateY(14px)';
+  finaleObserver.observe($('#finale'));
+
+  /* ================================================================
+     NAV DOTS
+  ================================================================ */
+  const navSections = $$('main section[data-nav], #hero[data-nav]');
+  const navdots = $('#navdots');
+  const dotButtons = [];
+  navSections.forEach((sec, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', sec.dataset.nav);
+    b.title = sec.dataset.nav;
+    b.addEventListener('click', () => sec.scrollIntoView({behavior:'smooth'}));
+    navdots.appendChild(b);
+    dotButtons.push(b);
+  });
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = navSections.indexOf(entry.target);
+      if (entry.isIntersecting && idx > -1){
+        dotButtons.forEach(d => d.classList.remove('active'));
+        dotButtons[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  navSections.forEach(sec => navObserver.observe(sec));
+
+  /* ================================================================
+     CURSOR GLOW (desktop only)
+  ================================================================ */
+  const cursorGlow = $('#cursorGlow');
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (!isTouch){
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
+    });
+  } else {
+    cursorGlow.style.display = 'none';
+  }
+
+  /* ================================================================
+     BACKGROUND PARTICLES — hearts / sparkles field
+  ================================================================ */
+  const fxCanvas = $('#fx-canvas');
+  const fxCtx = fxCanvas.getContext('2d');
+  let W, H, particles = [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PARTICLE_COUNT = isTouch ? 26 : 46;
+
+  function resizeCanvas(){
+    W = fxCanvas.width = window.innerWidth;
+    H = fxCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function makeParticle(){
+    const kind = Math.random() < 0.25 ? 'heart' : 'spark';
+    return {
+      kind,
+      x: Math.random()*W,
+      y: Math.random()*H + H,
+      size: kind==='heart' ? (6+Math.random()*8) : (1+Math.random()*2),
+      speed: 0.15 + Math.random()*0.35,
+      drift: (Math.random()-0.5)*0.3,
+      opacity: 0.15 + Math.random()*0.35,
+      twinkle: Math.random()*Math.PI*2
+    };
+  }
+  for (let i=0;i<PARTICLE_COUNT;i++){ const p = makeParticle(); p.y = Math.random()*H; particles.push(p); }
+
+  function drawHeart(ctx, x, y, size, opacity){
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(size/16, size/16);
+    ctx.beginPath();
+    ctx.moveTo(0, 4);
+    ctx.bezierCurveTo(0, -2, -8, -2, -8, 4);
+    ctx.bezierCurveTo(-8, 9, 0, 13, 0, 16);
+    ctx.bezierCurveTo(0, 13, 8, 9, 8, 4);
+    ctx.bezierCurveTo(8, -2, 0, -2, 0, 4);
+    ctx.closePath();
+    ctx.fillStyle = `rgba(230,184,201,${opacity})`;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  let rafId;
+  function animateFx(){
+    fxCtx.clearRect(0,0,W,H);
+    particles.forEach(p => {
+      p.y -= p.speed;
+      p.x += p.drift;
+      p.twinkle += 0.03;
+      if (p.y < -20){ Object.assign(p, makeParticle()); p.y = H+20; }
+      const flick = p.kind==='spark' ? (0.5+0.5*Math.sin(p.twinkle)) : 1;
+      if (p.kind === 'heart'){
+        drawHeart(fxCtx, p.x, p.y, p.size, p.opacity*flick);
+      } else {
+        fxCtx.beginPath();
+        fxCtx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+        fxCtx.fillStyle = `rgba(241,221,192,${p.opacity*flick})`;
+        fxCtx.fill();
+      }
+    });
+    rafId = requestAnimationFrame(animateFx);
+  }
+  if (!reduceMotion) animateFx();
+
+  function burstHeartsAt(el){
+    const rect = el.getBoundingClientRect();
+    for (let i=0;i<10;i++){
+      const h = document.createElement('div');
+      h.textContent = '❤';
+      h.style.cssText = `position:fixed; left:${rect.left+rect.width/2}px; top:${rect.top+rect.height/2}px; color:var(--rose-soft); font-size:${10+Math.random()*14}px; pointer-events:none; z-index:3000; transition:transform 1s ease-out, opacity 1s ease-out;`;
+      document.body.appendChild(h);
+      requestAnimationFrame(() => {
+        const dx = (Math.random()-0.5)*160;
+        const dy = -80-Math.random()*100;
+        h.style.transform = `translate(${dx}px, ${dy}px) rotate(${(Math.random()-0.5)*90}deg)`;
+        h.style.opacity = '0';
+      });
+      setTimeout(() => h.remove(), 1050);
+    }
+  }
+
+  function initHeartbeatIntro(){
+    // subtle one-off page-load pulse on the loader heart residue — handled via CSS already
+  }
+
+  /* ================================================================
+     CONFETTI FOR FINALE (canvas-based, lightweight)
+  ================================================================ */
+  const confettiCanvas = $('#confetti-canvas');
+  const cctx = confettiCanvas.getContext('2d');
+  function launchConfetti(){
+    if (reduceMotion) return;
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+    const colors = ['#e6b8c9','#f1ddc0','#8a2f47','#faf3ec'];
+    const pieces = Array.from({length:70}, () => ({
+      x: Math.random()*confettiCanvas.width,
+      y: -20 - Math.random()*200,
+      r: 4+Math.random()*5,
+      c: colors[Math.floor(Math.random()*colors.length)],
+      speed: 1.5+Math.random()*2.5,
+      drift: (Math.random()-0.5)*1.5,
+      rot: Math.random()*Math.PI,
+      rotSpeed: (Math.random()-0.5)*0.15,
+      isHeart: Math.random() < 0.35
+    }));
+    let frame = 0;
+    function tick(){
+      cctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+      let alive = false;
+      pieces.forEach(p => {
+        p.y += p.speed; p.x += p.drift; p.rot += p.rotSpeed;
+        if (p.y < confettiCanvas.height+20) alive = true;
+        cctx.save();
+        cctx.translate(p.x,p.y);
+        cctx.rotate(p.rot);
+        cctx.fillStyle = p.c;
+        if (p.isHeart){
+          drawHeart(cctx, 0, 0, p.r*1.6, 0.9);
+        } else {
+          cctx.fillRect(-p.r/2,-p.r/2,p.r,p.r);
+        }
+        cctx.restore();
+      });
+      frame++;
+      if (alive && frame < 420){ requestAnimationFrame(tick); }
+      else { cctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height); }
+    }
+    tick();
+  }
+  window.addEventListener('resize', () => { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; });
+
+  /* ================================================================
+     KEYBOARD: close lightbox / modal with Escape
+  ================================================================ */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      lightbox.classList.remove('open');
+      eggModal.classList.remove('open');
+    }
+  });
+
+}); // DOMContentLoaded
+</script>
+</body>
+</html>
